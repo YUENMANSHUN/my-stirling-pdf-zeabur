@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   stirling-pdf:
     image: stirlingtools/stirling-pdf:latest
@@ -19,4 +17,3 @@ services:
       - ./configs:/configs                    # 配置文件目錄（可選）
       - ./logs:/logs                         # 日誌文件（可選）
       - ./custom-files:/customFiles          # 自訂文件資料夾（可選）
-
