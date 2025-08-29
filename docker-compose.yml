@@ -3,9 +3,20 @@ version: '3.8'
 services:
   stirling-pdf:
     image: stirlingtools/stirling-pdf:latest
+    container_name: stirling-pdf
     ports:
       - "8080:8080"
     environment:
-      - DOCKER_ENABLE_SECURITY=false
-      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=true
+      - DOCKER_ENABLE_SECURITY=true          # 啟用安全認證功能
+      - ENABLE_LOGIN=true                     # 啟用登入介面
+      - SECURITY_CUSTOMGLOBALAPIKEY=your_global_api_key_here  # 自訂全局API金鑰，請改成自己設定的
+      - CSRF_DISABLED=true                    # 測試時可禁用CSRF保護，生產環境視需求而定
+      - INSTALL_BOOK_AND_ADVANCED_HTML_OPS=true # 進階功能
+      - LANGS=en_US                          # 選擇語言
     restart: unless-stopped
+    volumes:
+      - ./tessdata:/usr/share/tessdata       # OCR等語言資源（可選）
+      - ./configs:/configs                    # 配置文件目錄（可選）
+      - ./logs:/logs                         # 日誌文件（可選）
+      - ./custom-files:/customFiles          # 自訂文件資料夾（可選）
+
